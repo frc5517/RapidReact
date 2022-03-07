@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.autonomous.ScoreThenDriveOffTarmac;
+import frc.robot.commands.autonomous.ScoreHighThenDriveOffTarmac;
 import frc.robot.commands.autonomous.driveOffTarmac;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
@@ -29,8 +29,13 @@ public class RobotContainer {
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
   private final driveOffTarmac m_autoDriveOffTarmac = new driveOffTarmac(m_drivetrain, 0.5);
-  private final ScoreThenDriveOffTarmac m_autoTopOffTarmac = new ScoreThenDriveOffTarmac(
-    m_manipulator, 0.8, 
+  private final ScoreHighThenDriveOffTarmac m_autoScoreHighThenDriveOffTarmac = new ScoreHighThenDriveOffTarmac(
+    m_manipulator, 1, 
+    m_indexer, 0.3, 
+    m_drivetrain, 0.5
+  );
+  private final ScoreHighThenDriveOffTarmac m_autoScoreLowThenDriveOffTarmac = new ScoreHighThenDriveOffTarmac(
+    m_manipulator, 0.5, 
     m_indexer, 0.3, 
     m_drivetrain, 0.5
   );
@@ -38,7 +43,8 @@ public class RobotContainer {
     // Configure the button bindings
     
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("TopOffTarmac", m_autoTopOffTarmac);
+    m_chooser.setDefaultOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
+    m_chooser.addOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
     m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
 
     // Put the chooser on the dashboard

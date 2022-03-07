@@ -12,7 +12,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SparkConstants;
 import frc.robot.Constants.VictorConstants;
@@ -28,18 +27,7 @@ public static WPI_VictorSPX leftIntake = new WPI_VictorSPX(VictorConstants.leftI
     rightIntake.setNeutralMode(NeutralMode.Coast);
     leftIntake.setNeutralMode(NeutralMode.Coast);
     liftSpark.setIdleMode(IdleMode.kBrake);
-
-    liftSpark.restoreFactoryDefaults();
-
-    liftSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    liftSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-
-    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 15);
-    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
-
     liftEncoder = liftSpark.getEncoder();
-
-    SmartDashboard.putNumber("Lift Position", liftEncoder.getPosition());
   }
 
   public void collect(double power) {

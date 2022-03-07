@@ -1,0 +1,74 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [5]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[0]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[1]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[21]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[22]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[23]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[24]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[2]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[3]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Victor SPX[4]": {
+        "header": {
+          "open": true
+        }
+      },
+      "window": {
+        "visible": false
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Indexer": "Subsystem",
+      "/LiveWindow/Manipulator": "Subsystem",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Spark[0]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [21]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [22]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [23]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [24]": "Motor Controller",
+      "/LiveWindow/driveTrain": "Subsystem"
+    }
+  }
+}

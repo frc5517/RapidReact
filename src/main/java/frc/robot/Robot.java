@@ -8,14 +8,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
-import frc.robot.subsystems.xboxControls;
-
+import frc.robot.subsystems.playstationControls;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -26,6 +24,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private final Manipulator m_manipulator = new Manipulator();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -53,10 +53,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-
-    SmartDashboard.putNumber("Lift Position", Manipulator.liftEncoder.getPosition());
   }
-
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {}
@@ -88,7 +85,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
     
     Manipulator.liftSpark.restoreFactoryDefaults();
   }
@@ -97,21 +93,21 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // Indexer input
-    if (xboxControls.xboxController.getRawButton(5)) {
+    if (playstationControls.psController.getRawButton(5)) {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, .5);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, -.5);
       Indexer.rightIndexer.set(ControlMode.PercentOutput, .3);
       Indexer.leftIndexer.set(ControlMode.PercentOutput, .3); 
     }
     // Shoot
-    else if (xboxControls.xboxController.getRawButton(6)) {
+    else if (playstationControls.psController.getRawButton(6)) {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, -.5);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, .5);
       Indexer.rightIndexer.set(ControlMode.PercentOutput, -.3);
       Indexer.leftIndexer.set(ControlMode.PercentOutput, -.3);
     }
     // Highspeed Shoot
-    else if (xboxControls.xboxController.getRawButton(4)) {
+    else if (playstationControls.psController.getRawButton(4)) {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, -1);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, 1);
       Indexer.rightIndexer.set(ControlMode.PercentOutput, -.30);
@@ -124,12 +120,13 @@ public class Robot extends TimedRobot {
       Indexer.leftIndexer.set(ControlMode.PercentOutput, 0);
     }
 
+
     // Climb up function
-    if (xboxControls.xboxController.getRawButton(8)) {
+    if (playstationControls.psController.getRawButton(8)) {
       Climber.climb.set(-0.8);
     }
     // Climb down function
-    else if (xboxControls.xboxController.getRawButton(7)) {
+    else if (playstationControls.psController.getRawButton(7)) {
       Climber.climb.set(0.8);
     }
     // If nothing is being pressed climb stops
@@ -138,12 +135,16 @@ public class Robot extends TimedRobot {
     }
 
     // Intake lift mechanism
-    if (xboxControls.xboxController.getRawButton(1)) {
+    if (playstationControls.psController.getRawButton(2)) {
       Manipulator.liftSpark.set(1);
     }
     // Intake lift down
-    else if (xboxControls.xboxController.getRawButton(2)) {
+    else if (playstationControls.psController.getRawButton(1)) {
     Manipulator.liftSpark.set(-1);
+    }
+    // Intake Lift set position
+    else if (playstationControls.psController.getRawButton(3)) {
+      m_manipulator.moveToSetpoint(100, 1);
     }
     else {
       Manipulator.liftSpark.set(0);

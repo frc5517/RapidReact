@@ -24,19 +24,19 @@ public final static WPI_VictorSPX leftIndexer = new WPI_VictorSPX(VictorConstant
   public void index(double power) {
     // Apply voltage to the motors
     rightIndexer.set(ControlMode.PercentOutput, power);
-    leftIndexer.set(ControlMode.PercentOutput, -power);
+    leftIndexer.set(ControlMode.PercentOutput, power);
   }
 
   public void outdex(double power) {
     // Apply voltage to the motors
     rightIndexer.set(ControlMode.PercentOutput, -power);
-    leftIndexer.set(ControlMode.PercentOutput, power);
+    leftIndexer.set(ControlMode.PercentOutput, -power);
   }
 
   public void stop() {
     // Apply no voltage to the motor
     rightIndexer.set(ControlMode.PercentOutput, 0);
-    rightIndexer.set(ControlMode.PercentOutput, 0);
+    leftIndexer.set(ControlMode.PercentOutput, 0);
   }
 
   @Override

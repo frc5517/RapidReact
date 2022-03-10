@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.autonomous.Score;
 import frc.robot.commands.autonomous.ScoreHighThenDriveOffTarmac;
 import frc.robot.commands.autonomous.driveOffTarmac;
 import frc.robot.subsystems.Indexer;
@@ -39,6 +40,16 @@ public class RobotContainer {
     m_indexer, 0.3, 
     m_drivetrain, 0.5
   );
+  private final Score m_autoScore = new Score(
+    m_manipulator, 0.5, 
+    m_indexer, 0.3
+  );
+  
+
+  public void Periodic() {
+    
+  }
+
   public RobotContainer() {
     // Configure the button bindings
     
@@ -46,6 +57,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
     m_chooser.addOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
     m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
+    m_chooser.addOption("Score", m_autoScore);
 
     // Put the chooser on the dashboard
     SmartDashboard.putData(m_chooser);
@@ -60,6 +72,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {}
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -33,7 +33,7 @@ public class MoveToPosition extends CommandBase {
   @Override
   public void initialize() {
     // Reset the encoder
-    m_manipulator.resetliftEncoder();
+    // m_manipulator.resetliftEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

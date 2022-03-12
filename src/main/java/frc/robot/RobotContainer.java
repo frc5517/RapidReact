@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autonomous.Score;
 import frc.robot.commands.autonomous.ScoreHighThenDriveOffTarmac;
+import frc.robot.commands.autonomous.ScoreLowThenDriveOffTarmac;
 import frc.robot.commands.autonomous.driveOffTarmac;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
@@ -31,19 +32,24 @@ public class RobotContainer {
   
   private final driveOffTarmac m_autoDriveOffTarmac = new driveOffTarmac(m_drivetrain, 0.5);
   private final ScoreHighThenDriveOffTarmac m_autoScoreHighThenDriveOffTarmac = new ScoreHighThenDriveOffTarmac(
-    m_manipulator, 1, 
-    m_indexer, 0.3, 
+    m_manipulator, .9, 
+    m_indexer, 0.6, 
     m_drivetrain, 0.5
   );
-  private final ScoreHighThenDriveOffTarmac m_autoScoreLowThenDriveOffTarmac = new ScoreHighThenDriveOffTarmac(
+  private final ScoreLowThenDriveOffTarmac m_autoScoreLowThenDriveOffTarmac = new ScoreLowThenDriveOffTarmac(
     m_manipulator, 0.5, 
-    m_indexer, 0.3, 
+    m_indexer, 0.6, 
     m_drivetrain, 0.5
   );
   private final Score m_autoScore = new Score(
     m_manipulator, 0.5, 
-    m_indexer, 0.3
+    m_indexer, 0.6
   );
+  private final Score m_autoScoreHigh = new Score(
+    m_manipulator, .9,
+    m_indexer, .6
+  );
+  
   
 
   public void Periodic() {
@@ -54,10 +60,13 @@ public class RobotContainer {
     // Configure the button bindings
     
     // Add commands to the autonomous command chooser
-    m_chooser.setDefaultOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
-    m_chooser.addOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
+    // m_chooser.setDefaultOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
+    // m_chooser.addOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
+    m_chooser.setDefaultOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
+    m_chooser.addOption("ScpreowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
     m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
     m_chooser.addOption("Score", m_autoScore);
+    m_chooser.addOption("ScoreHigh", m_autoScoreHigh);
 
     // Put the chooser on the dashboard
     SmartDashboard.putData(m_chooser);

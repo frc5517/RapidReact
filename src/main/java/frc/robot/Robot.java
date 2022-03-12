@@ -14,6 +14,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
 import frc.robot.subsystems.playstationControls;
+import frc.robot.subsystems.xboxControls;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -96,22 +97,22 @@ public class Robot extends TimedRobot {
     if (playstationControls.psController.getRawButton(5)) {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, .5);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, -.5);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, .3);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, .3); 
+      Indexer.rightIndexer.set(ControlMode.PercentOutput, .6);
+      Indexer.leftIndexer.set(ControlMode.PercentOutput, .6); 
     }
     // Shoot
     else if (playstationControls.psController.getRawButton(6)) {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, -.5);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, .5);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.3);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.3);
+      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.5);
+      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.5);
     }
     // Highspeed Shoot
     else if (playstationControls.psController.getRawButton(4)) {
-      Manipulator.rightIntake.set(ControlMode.PercentOutput, -1);
-      Manipulator.leftIntake.set(ControlMode.PercentOutput, 1);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.30);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.30);
+      Manipulator.rightIntake.set(ControlMode.PercentOutput, -.9);
+      Manipulator.leftIntake.set(ControlMode.PercentOutput, .9);
+      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.5);
+      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.5);
     }
     else {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, 0);
@@ -136,7 +137,7 @@ public class Robot extends TimedRobot {
 
     // Intake lift mechanism
     if (playstationControls.psController.getRawButton(2)) {
-      Manipulator.liftSpark.set(1);
+      m_manipulator.moveToSetpoint(130, 1);
     }
     // Intake lift down
     else if (playstationControls.psController.getRawButton(1)) {
@@ -144,7 +145,14 @@ public class Robot extends TimedRobot {
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(3)) {
-      m_manipulator.moveToSetpoint(100, 1);
+      m_manipulator.moveToSetpoint(145, 1);
+    }
+    // Intake Lift Auton Position
+    else if (xboxControls.xboxController.getRawButton(8)) {
+      m_manipulator.moveToSetpoint(130, 0.5);
+    }
+    else if (xboxControls.xboxController.getRawButton(4)) {
+      Manipulator.liftSpark.set(1);
     }
     else {
       Manipulator.liftSpark.set(0);

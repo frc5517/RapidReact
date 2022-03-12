@@ -31,7 +31,7 @@ public class driveTrain extends SubsystemBase {
   }
 
   public void setMaxOutput(double maxOutput) {
-    drive.setMaxOutput(0.8);
+    drive.setMaxOutput(0.7);
   }
 
   public void stop() {

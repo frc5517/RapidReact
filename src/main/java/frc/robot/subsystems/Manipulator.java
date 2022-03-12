@@ -103,12 +103,12 @@ SparkMaxPIDController liftPID;
   }
 
   @Override
-  public void periodic() {
+  public void periodic() { 
     liftSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     liftSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 175);
-    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 10);
-    SmartDashboard.putNumber("Lift Position", liftEncoder.getPosition());
+    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 200);
+    liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 10); 
+    SmartDashboard.putNumber("Lift Position", liftEncoder.getPosition()); 
   }
   
 

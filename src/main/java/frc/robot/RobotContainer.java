@@ -60,13 +60,11 @@ public class RobotContainer {
     // Configure the button bindings
     
     // Add commands to the autonomous command chooser
-    // m_chooser.setDefaultOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
-    // m_chooser.addOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
     m_chooser.setDefaultOption("ScoreHighThenDriveOffTarmac", m_autoScoreHighThenDriveOffTarmac);
-    m_chooser.addOption("ScpreowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
-    m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
-    m_chooser.addOption("Score", m_autoScore);
+    m_chooser.addOption("ScoreLowThenDriveOffTarmac", m_autoScoreLowThenDriveOffTarmac);
     m_chooser.addOption("ScoreHigh", m_autoScoreHigh);
+    m_chooser.addOption("Score", m_autoScore);
+    m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
 
     // Put the chooser on the dashboard
     SmartDashboard.putData(m_chooser);

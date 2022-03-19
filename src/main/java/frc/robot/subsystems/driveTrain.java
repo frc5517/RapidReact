@@ -7,6 +7,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +26,27 @@ public class driveTrain extends SubsystemBase {
   static MotorControllerGroup rightMotors = new MotorControllerGroup(rightFrontMotor, rightRearMotor);
   public static DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
+  // Constants such as camera and target height stored. Change per robot and goal!
+  final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(35);
+  final double TARGET_HEIGHT_METERS = Units.feetToMeters(5);
+  // Angle between horizontal and the camera.
+  final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);
+
+  // How far from the target we want to be
+  final double GOAL_RANGE_METERS = Units.feetToMeters(6);
+
+  // Change this to match the name of your camera
+  PhotonCamera camera = new PhotonCamera("photonvision");
+
+  // PID constants should be tuned per robot
+  final double LINEAR_P = 0.1;
+  final double LINEAR_D = 0.0;
+  PIDController forwardController = new PIDController(LINEAR_P, 0, LINEAR_D);
+
+  final double ANGULAR_P = 0.1;
+  final double ANGULAR_D = 0.0;
+  PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
+
   public driveTrain() {
     leftRearMotor.setNeutralMode(NeutralMode.Coast);
     leftFrontMotor.setNeutralMode(NeutralMode.Coast);
@@ -31,7 +56,6 @@ public class driveTrain extends SubsystemBase {
   }
 
   public void setMaxOutput(double maxOutput) {
-    drive.setMaxOutput(0.7);
   }
 
   public void stop() {
@@ -50,9 +74,28 @@ public class driveTrain extends SubsystemBase {
     leftMotors.setInverted(false);
     rightMotors.setInverted(true);
     
-    // Use Drive Train
-    drive.arcadeDrive(xboxControls.xboxController.getRawAxis(1), -xboxControls.xboxController.getRawAxis(4));
-  }
+    // Drive slower
+    if (joystickControls.leftStick.getRawButton(1)) {
+      drive.setMaxOutput(.3);
+    }
+    else if (joystickControls.rightStick.getRawButton(1)) {
+      drive.setMaxOutput(1);
+    }
+    else {
+      driveTrain.drive.setMaxOutput(.7);
+    }
+
+    double forwardSpeed;
+        double rotationSpeed;
+
+        forwardSpeed = joystickControls.rightStick.getRawAxis(1);
+        rotationSpeed = -joystickControls.leftStick.getRawAxis(0);
+
+        // Use our forward/turn speeds to control the drivetrain
+        drive.arcadeDrive(forwardSpeed, rotationSpeed);
+    }
+
+  
 
   @Override
   public void simulationPeriodic() {

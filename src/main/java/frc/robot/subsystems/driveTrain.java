@@ -7,10 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import org.photonvision.PhotonCamera;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,18 +22,6 @@ public class driveTrain extends SubsystemBase {
   static WPI_VictorSPX rightFrontMotor = new WPI_VictorSPX(DriveConstants.rightFrontMotorPort);
   static MotorControllerGroup rightMotors = new MotorControllerGroup(rightFrontMotor, rightRearMotor);
   public static DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
-
-  // Constants such as camera and target height stored. Change per robot and goal!
-  final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(35);
-  final double TARGET_HEIGHT_METERS = Units.feetToMeters(5);
-  // Angle between horizontal and the camera.
-  final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);
-
-  // How far from the target we want to be
-  final double GOAL_RANGE_METERS = Units.feetToMeters(6);
-
-  // Change this to match the name of your camera
-  PhotonCamera camera = new PhotonCamera("photonvision");
 
   // PID constants should be tuned per robot
   final double LINEAR_P = 0.1;
@@ -76,7 +61,7 @@ public class driveTrain extends SubsystemBase {
     
     // Drive slower
     if (joystickControls.leftStick.getRawButton(1)) {
-      drive.setMaxOutput(.3);
+      drive.setMaxOutput(.4);
     }
     else if (joystickControls.rightStick.getRawButton(1)) {
       drive.setMaxOutput(1);

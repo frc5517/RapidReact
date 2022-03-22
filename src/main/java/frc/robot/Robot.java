@@ -6,18 +6,11 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.indexer.EjectThenOutdex;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
@@ -35,8 +28,16 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private final Manipulator m_manipulator = new Manipulator();
-
-  Thread m_visionThread;
+  private final Indexer m_Indexer = new Indexer();
+  
+  private final EjectThenOutdex m_lowSpeed = new EjectThenOutdex(
+    m_manipulator, 0.5, 1,
+    m_Indexer, 0.5
+  );
+  private final EjectThenOutdex m_highSpeed = new EjectThenOutdex(
+    m_manipulator, 0.9, 1,
+    m_Indexer, 0.5
+  );
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,45 +49,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
-    
-    m_visionThread =
-    new Thread(
-        () -> {
-          // Get the UsbCamera from CameraServer
-          UsbCamera camera = CameraServer.startAutomaticCapture();
-          // Set the resolution
-          camera.setResolution(640, 480);
-
-          // Get a CvSink. This will capture Mats from the camera
-          CvSink cvSink = CameraServer.getVideo();
-          // Setup a CvSource. This will send images back to the Dashboard
-          CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
-
-          // Mats are very memory expensive. Lets reuse this Mat.
-          Mat mat = new Mat();
-
-          // This cannot be 'true'. The program will never exit if it is. This
-          // lets the robot stop this thread when restarting robot code or
-          // deploying.
-          while (!Thread.interrupted()) {
-            // Tell the CvSink to grab a frame from the camera and put it
-            // in the source mat.  If there is an error notify the output.
-            if (cvSink.grabFrame(mat) == 0) {
-              // Send the output the error.
-              outputStream.notifyError(cvSink.getError());
-              // skip the rest of the current iteration
-              continue;
-            }
-            // Put a rectangle on the image
-            Imgproc.rectangle(
-                mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
-            // Give the output stream a new image to display
-            outputStream.putFrame(mat);
-          }
-        });
-m_visionThread.setDaemon(true);
-m_visionThread.start();
-}
+  }
 
   
 
@@ -151,24 +114,21 @@ m_visionThread.start();
       Indexer.leftIndexer.set(ControlMode.PercentOutput, .6); 
     }
     // Shoot
-    else if (playstationControls.psController.getRawButton(6)) {
-      Manipulator.rightIntake.set(ControlMode.PercentOutput, -.5);
-      Manipulator.leftIntake.set(ControlMode.PercentOutput, .5);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.5);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.5);
+    else if (playstationControls.psController.getRawButton(3)) {
+      m_lowSpeed.execute();
     }
     // Highspeed Shoot
     else if (playstationControls.psController.getRawButton(4)) {
-      Manipulator.rightIntake.set(ControlMode.PercentOutput, -.9);
-      Manipulator.leftIntake.set(ControlMode.PercentOutput, .9);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, -.5);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, -.5);
+      m_highSpeed.execute();
     }
+      
     else {
       Manipulator.rightIntake.set(ControlMode.PercentOutput, 0);
       Manipulator.leftIntake.set(ControlMode.PercentOutput, 0);
       Indexer.rightIndexer.set(ControlMode.PercentOutput, 0);
       Indexer.leftIndexer.set(ControlMode.PercentOutput, 0);
+      m_lowSpeed.cancel();
+      m_highSpeed.cancel();
     }
 
 
@@ -194,7 +154,7 @@ m_visionThread.start();
     Manipulator.liftSpark.set(-1);
     }
     // Intake Lift set position
-    else if (playstationControls.psController.getRawButton(3)) {
+    else if (playstationControls.psController.getRawButton(6)) {
       m_manipulator.moveToSetpoint(145, 1);
     }
     // Intake Lift Auton Position

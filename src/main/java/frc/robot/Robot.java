@@ -4,15 +4,11 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.indexer.EjectThenOutdex;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
 import frc.robot.subsystems.playstationControls;
 import frc.robot.subsystems.xboxControls;
@@ -28,17 +24,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   private final Manipulator m_manipulator = new Manipulator();
-  private final Indexer m_Indexer = new Indexer();
-  
-  private final EjectThenOutdex m_lowSpeed = new EjectThenOutdex(
-    m_manipulator, 0.5, 1,
-    m_Indexer, 0.5
-  );
-  private final EjectThenOutdex m_highSpeed = new EjectThenOutdex(
-    m_manipulator, 0.9, 1,
-    m_Indexer, 0.5
-  );
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -106,32 +91,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // Indexer input
-    if (playstationControls.psController.getRawButton(5)) {
-      Manipulator.rightIntake.set(ControlMode.PercentOutput, .5);
-      Manipulator.leftIntake.set(ControlMode.PercentOutput, -.5);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, .6);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, .6); 
-    }
-    // Shoot
-    else if (playstationControls.psController.getRawButton(3)) {
-      m_lowSpeed.execute();
-    }
-    // Highspeed Shoot
-    else if (playstationControls.psController.getRawButton(4)) {
-      m_highSpeed.execute();
-    }
-      
-    else {
-      Manipulator.rightIntake.set(ControlMode.PercentOutput, 0);
-      Manipulator.leftIntake.set(ControlMode.PercentOutput, 0);
-      Indexer.rightIndexer.set(ControlMode.PercentOutput, 0);
-      Indexer.leftIndexer.set(ControlMode.PercentOutput, 0);
-      m_lowSpeed.cancel();
-      m_highSpeed.cancel();
-    }
-
-
     // Climb up function
     if (playstationControls.psController.getRawButton(8)) {
       Climber.climb.set(-0.8);

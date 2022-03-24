@@ -5,7 +5,8 @@
 package frc.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.manipulator.EjectForTime;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.manipulator.Eject;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
 
@@ -22,8 +23,10 @@ public class EjectThenOutdex extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new EjectForTime(manipulator, () -> manipulatorPower, time),
+      new Eject(manipulator, () -> manipulatorPower),
+      sequence(new WaitCommand(time),
       new Outdex(indexer, () -> indexerPower)
+      )
     );
   }
 }

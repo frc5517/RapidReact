@@ -6,11 +6,6 @@
           "open": true
         }
       },
-      "Victor SPX[1]": {
-        "header": {
-          "open": true
-        }
-      },
       "Victor SPX[21]": {
         "header": {
           "open": true
@@ -27,21 +22,6 @@
         }
       },
       "Victor SPX[24]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Victor SPX[2]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Victor SPX[3]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Victor SPX[4]": {
         "header": {
           "open": true
         }
@@ -64,6 +44,14 @@
       "/LiveWindow/Ungrouped/Victor SPX [24]": "Motor Controller",
       "/LiveWindow/driveTrain": "Subsystem",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
+    }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "SendableChooser[0]": {
+        "open": true
+      },
+      "open": true
     }
   }
 }

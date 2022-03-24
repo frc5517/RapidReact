@@ -107,17 +107,14 @@ public class Robot extends TimedRobot {
     // Intake lift mechanism
     if (playstationControls.psController.getRawButton(2)) {
       m_manipulator.moveToSetpoint(130, 1);
-      m_manipulator.moveToSetpoint(130, -1);
     }
     // Intake lift down
     else if (playstationControls.psController.getRawButton(1)) {
-      m_manipulator.moveToSetpoint(10, 1);
-      m_manipulator.moveToSetpoint(10, -1);
+      Manipulator.liftSpark.set(-1);
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(6)) {
       m_manipulator.moveToSetpoint(145, 1);
-      m_manipulator.moveToSetpoint(145, -1);
     }
     else {
       Manipulator.liftSpark.set(0);

@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Manipulator;
 import frc.robot.subsystems.playstationControls;
-import frc.robot.subsystems.xboxControls;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -24,6 +21,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private final Manipulator m_manipulator = new Manipulator();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -107,19 +106,18 @@ public class Robot extends TimedRobot {
 
     // Intake lift mechanism
     if (playstationControls.psController.getRawButton(2)) {
-      Manipulator.liftPID.setReference(130, CANSparkMax.ControlType.kPosition);
+      m_manipulator.moveToSetpoint(130, 1);
+      m_manipulator.moveToSetpoint(130, -1);
     }
     // Intake lift down
     else if (playstationControls.psController.getRawButton(1)) {
-      Manipulator.liftPID.setReference(10, CANSparkMax.ControlType.kPosition);
+      m_manipulator.moveToSetpoint(10, 1);
+      m_manipulator.moveToSetpoint(10, -1);
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(6)) {
-      Manipulator.liftPID.setReference(145, CANSparkMax.ControlType.kPosition);
-    }
-    // Intake Lift Auton Position
-    else if (xboxControls.xboxController.getRawButton(8)) {
-      Manipulator.liftPID.setReference(130, CANSparkMax.ControlType.kPosition);
+      m_manipulator.moveToSetpoint(145, 1);
+      m_manipulator.moveToSetpoint(145, -1);
     }
     else {
       Manipulator.liftSpark.set(0);

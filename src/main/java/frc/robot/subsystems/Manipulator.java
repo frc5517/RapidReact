@@ -109,6 +109,7 @@ public static SparkMaxPIDController liftPID;
     liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 200);
     liftSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 10); 
     SmartDashboard.putNumber("Lift Position", liftEncoder.getPosition()); 
+
   }
   
 
@@ -136,7 +137,7 @@ public static SparkMaxPIDController liftPID;
 
   public void resetliftEncoder() {
     // Set the position of the encoder to zero, effectively resetting it
-    liftEncoder.setPosition(0);
+    // liftEncoder.setPosition(0);
   }
   
 }

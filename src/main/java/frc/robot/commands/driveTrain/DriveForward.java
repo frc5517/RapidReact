@@ -10,10 +10,10 @@ import frc.robot.subsystems.driveTrain;
 
 public class DriveForward extends ParallelDeadlineGroup {
   /** Creates a new DriveForward. */
-  public DriveForward(driveTrain drivetrain, double throttle) {
+  public DriveForward(driveTrain drivetrain, double throttle, int forwardTime) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new WaitCommand(3));
+    super(new WaitCommand(forwardTime));
     addCommands(
       new ArcadeDrive(drivetrain, () -> throttle, () -> 0)
     );

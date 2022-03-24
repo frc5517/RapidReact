@@ -58,10 +58,10 @@ public class RobotContainer {
     m_indexer, .6
   );
   private final TwoBallAuton m_TwoBallAuton = new TwoBallAuton(
-    m_manipulator, .9, 
-    m_indexer, .5, 
-    m_armLift, 10, 1, 
-    m_drivetrain, 0, .5
+    m_manipulator, .9, .5, 
+    m_indexer, .5, 1,
+    m_armLift, () -> 10, () -> 130, () -> -1, () -> 1, 3,
+    m_drivetrain, 0, .5, -.5, 3
   );
   private final Rotate m_rotate = new Rotate(
     m_drivetrain, 0, 0.5

@@ -33,6 +33,7 @@ public class TwoBallAuton extends SequentialCommandGroup {
     );
   }
 
+  // WIP will be removed stopping errors for now
   public TwoBallAuton(Manipulator m_manipulator, double manipulatorPower, Indexer m_indexer, double indexerPower,
       Manipulator m_armLift, int i, int j, driveTrain m_drivetrain, int throttle, double rotation) {
   }

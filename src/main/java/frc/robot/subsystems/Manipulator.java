@@ -29,7 +29,7 @@ public static WPI_VictorSPX leftIntake = new WPI_VictorSPX(VictorConstants.leftI
 RelativeEncoder liftEncoder;
 
 // Create a SparkMaxPIDController object for closed-loop control of the arm
-SparkMaxPIDController liftPID;
+public static SparkMaxPIDController liftPID;
 
 // Create variables for PID control values
   // CHANGE VALUES AS FOLLOWS:

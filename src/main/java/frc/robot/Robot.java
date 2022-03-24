@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,7 +25,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final Manipulator m_manipulator = new Manipulator();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -106,19 +107,19 @@ public class Robot extends TimedRobot {
 
     // Intake lift mechanism
     if (playstationControls.psController.getRawButton(2)) {
-      m_manipulator.moveToSetpoint(130, 1);
+      Manipulator.liftPID.setReference(130, CANSparkMax.ControlType.kPosition);
     }
     // Intake lift down
     else if (playstationControls.psController.getRawButton(1)) {
-    Manipulator.liftSpark.set(-1);
+      Manipulator.liftPID.setReference(10, CANSparkMax.ControlType.kPosition);
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(6)) {
-      m_manipulator.moveToSetpoint(145, 1);
+      Manipulator.liftPID.setReference(145, CANSparkMax.ControlType.kPosition);
     }
     // Intake Lift Auton Position
     else if (xboxControls.xboxController.getRawButton(8)) {
-      m_manipulator.moveToSetpoint(130, 0.5);
+      Manipulator.liftPID.setReference(130, CANSparkMax.ControlType.kPosition);
     }
     else {
       Manipulator.liftSpark.set(0);

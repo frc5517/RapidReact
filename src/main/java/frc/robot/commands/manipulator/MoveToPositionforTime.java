@@ -6,11 +6,11 @@ package frc.robot.commands.manipulator;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Manipulator;
 
-public class MoveToPositionforTime extends ParallelCommandGroup {
+public class MoveToPositionforTime extends ParallelDeadlineGroup {
   /** Creates a new MoveToPositionforTime. */
   public MoveToPositionforTime(Manipulator manipulator, DoubleSupplier setpoint, DoubleSupplier power, int posTime) {
     

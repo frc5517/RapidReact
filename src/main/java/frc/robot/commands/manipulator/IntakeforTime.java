@@ -4,13 +4,13 @@
 
 package frc.robot.commands.manipulator;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.indexer.Index;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
 
-public class IntakeforTime extends ParallelCommandGroup {
+public class IntakeforTime extends ParallelDeadlineGroup {
   /** Creates a new Intake. */
   public IntakeforTime(
     Manipulator manipulator, double manipulatorPower, int intakeTime,

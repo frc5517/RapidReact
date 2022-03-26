@@ -35,7 +35,7 @@ public static final class VictorConstants {
     public static final int leftIntakePort = 22;
 }
 public static final class SparkConstants {
-    public static final int climbPort = 0;
+    public static final int climbPort = 25;
     public static final int liftPort = 5;
 }
 }

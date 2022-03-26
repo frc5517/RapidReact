@@ -24,17 +24,16 @@ public class TwoBallAuton extends SequentialCommandGroup {
   public TwoBallAuton(Manipulator manipulator, double manipulatorPower, double manipulatorPowerSlow,
                                  Indexer indexer, double indexerPower, int intakeTime,
                                  Manipulator armLift, DoubleSupplier setpoint, DoubleSupplier setpoint2, DoubleSupplier power, DoubleSupplier power2, int scoreTime, int posTime,
-                                 driveTrain drivetrain, double throttle, double rotation, double rotation2, int forwardTime) {
+                                 driveTrain drivetrain, double throttle, double rotation, int forwardTime) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new MoveToPositionforTime(armLift, setpoint, power, posTime),
-      new Rotate(drivetrain, throttle, rotation),
           new ParallelCommandGroup(
           new DriveForward(drivetrain, throttle, forwardTime),
           new IntakeforTime(manipulator, manipulatorPowerSlow, intakeTime,indexer, indexerPower)
           ),
-      new Rotate(drivetrain, throttle, rotation2),
+      new Rotate(drivetrain, throttle, rotation),
       new MoveToPositionforTime(manipulator, setpoint2, power2, posTime),
       new DriveForward(drivetrain, throttle, forwardTime),
       new ScoreforTime(manipulator, manipulatorPower, scoreTime, forwardTime, indexer, indexerPower),

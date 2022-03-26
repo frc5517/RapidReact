@@ -14,7 +14,7 @@ public class driveOffTarmac extends ParallelDeadlineGroup {
   public driveOffTarmac(driveTrain drivetrain, double throttle) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new WaitCommand(3));
+    super(new WaitCommand(2));
     addCommands(
       new ArcadeDrive(drivetrain, () -> throttle, () -> 0)
     );

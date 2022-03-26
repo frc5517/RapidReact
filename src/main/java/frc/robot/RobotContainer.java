@@ -16,6 +16,7 @@ import frc.robot.commands.autonomous.TwoBallAuton;
 import frc.robot.commands.autonomous.driveOffTarmac;
 import frc.robot.commands.indexer.EjectThenOutdex;
 import frc.robot.commands.manipulator.Intake;
+import frc.robot.commands.manipulator.MoveToPositionforTime;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
 import frc.robot.subsystems.driveTrain;
@@ -42,12 +43,12 @@ public class RobotContainer {
   private final ScoreHighThenDriveOffTarmac m_autoScoreHighThenDriveOffTarmac = new ScoreHighThenDriveOffTarmac(
     m_manipulator, .9, 
     m_indexer, 0.6, 
-    m_drivetrain, 0.5
+    m_drivetrain, 0.8
   );
   private final ScoreLowThenDriveOffTarmac m_autoScoreLowThenDriveOffTarmac = new ScoreLowThenDriveOffTarmac(
     m_manipulator, 0.5, 
     m_indexer, 0.6, 
-    m_drivetrain, 0.5
+    m_drivetrain, 0.8
   );
   private final Score m_autoScore = new Score(
     m_manipulator, 0.5, 
@@ -60,11 +61,14 @@ public class RobotContainer {
   private final TwoBallAuton m_TwoBallAuton = new TwoBallAuton(
     m_manipulator, .9, .5, 
     m_indexer, .5, 1,
-    m_armLift, () -> 10, () -> 130, () -> -1, () -> 1, 3, 3,
-    m_drivetrain, 0, .5, -.5, 3
+    m_armLift, () -> 10, () -> 130, () -> -1, () -> 1, 2, 3,
+    m_drivetrain, .6, .6, 3
   );
   private final Rotate m_rotate = new Rotate(
     m_drivetrain, 0, 0.5
+  );
+  private final MoveToPositionforTime m_MoveToPositionforTime = new MoveToPositionforTime(
+    m_manipulator, () -> 10, () -> -1, 3
   );
   
   
@@ -84,6 +88,7 @@ public class RobotContainer {
     m_chooser.addOption("Score", m_autoScore);
     m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
     m_chooser.addOption("Rotate", m_rotate);
+    m_chooser.addOption("MovetoPositionforTime", m_MoveToPositionforTime);
 
     // Put the chooser on the dashboard
     SmartDashboard.putData(m_chooser);
@@ -110,16 +115,16 @@ public class RobotContainer {
   }
 
   private final Intake m_intake = new Intake(
-    m_manipulator, .5, 
-    m_indexer, .5
+    m_manipulator, .6, 
+    m_indexer, .3
   );
 
   private final EjectThenOutdex m_lowSpeed = new EjectThenOutdex(
-    m_manipulator, 0.5, 1,
-    m_indexer, 0.5
+    m_manipulator, .3, .5, 
+    m_indexer, .5
   );
   private final EjectThenOutdex m_highSpeed = new EjectThenOutdex(
-    m_manipulator, 0.9, 1,
+    m_manipulator, 0.9, .5,
     m_indexer, 0.5
   );
 

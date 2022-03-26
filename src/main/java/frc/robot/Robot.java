@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -93,15 +95,15 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // Climb up function
     if (playstationControls.psController.getRawButton(8)) {
-      Climber.climb.set(-0.8);
+      Climber.climb.set(ControlMode.PercentOutput, -90);
     }
     // Climb down function
     else if (playstationControls.psController.getRawButton(7)) {
-      Climber.climb.set(0.8);
+      Climber.climb.set(ControlMode.PercentOutput, 90);
     }
     // If nothing is being pressed climb stops
     else {
-      Climber.climb.set(0);
+      Climber.climb.set(ControlMode.PercentOutput, 0);
     }
 
     // Intake lift mechanism
@@ -114,7 +116,7 @@ public class Robot extends TimedRobot {
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(6)) {
-      m_manipulator.moveToSetpoint(145, 1);
+      m_manipulator.moveToSetpoint(80, 1);
     }
     else {
       Manipulator.liftSpark.set(0);

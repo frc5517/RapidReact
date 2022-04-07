@@ -5,16 +5,16 @@
 package frc.robot.commands.autonomous;
 
 import frc.robot.commands.driveTrain.ArcadeDrive;
-import frc.robot.subsystems.driveTrain;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class driveOffTarmac extends ParallelDeadlineGroup {
   /** Creates a new DriveOffTarmac. */
-  public driveOffTarmac(driveTrain drivetrain, double throttle) {
+  public driveOffTarmac(DriveTrain drivetrain, double throttle) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new WaitCommand(2));
+    super(new WaitCommand(3));
     addCommands(
       new ArcadeDrive(drivetrain, () -> throttle, () -> 0)
     );

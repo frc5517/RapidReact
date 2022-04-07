@@ -14,7 +14,7 @@ import frc.robot.commands.manipulator.MoveToPositionforTime;
 import frc.robot.commands.manipulator.ScoreforTime;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
-import frc.robot.subsystems.driveTrain;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,16 +24,17 @@ public class TwoBallAuton extends SequentialCommandGroup {
   public TwoBallAuton(Manipulator manipulator, double manipulatorPower, double manipulatorPowerSlow,
                                  Indexer indexer, double indexerPower, int intakeTime,
                                  Manipulator armLift, DoubleSupplier setpoint, DoubleSupplier setpoint2, DoubleSupplier power, DoubleSupplier power2, int scoreTime, int posTime,
-                                 driveTrain drivetrain, double throttle, double rotation, int forwardTime) {
+                                 DriveTrain drivetrain, double throttle, double rotation, double rotation2, int forwardTime) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new MoveToPositionforTime(armLift, setpoint, power, posTime),
+      new Rotate(drivetrain, throttle, rotation),
           new ParallelCommandGroup(
           new DriveForward(drivetrain, throttle, forwardTime),
           new IntakeforTime(manipulator, manipulatorPowerSlow, intakeTime,indexer, indexerPower)
           ),
-      new Rotate(drivetrain, throttle, rotation),
+      new Rotate(drivetrain, throttle, rotation2),
       new MoveToPositionforTime(manipulator, setpoint2, power2, posTime),
       new DriveForward(drivetrain, throttle, forwardTime),
       new ScoreforTime(manipulator, manipulatorPower, scoreTime, forwardTime, indexer, indexerPower),

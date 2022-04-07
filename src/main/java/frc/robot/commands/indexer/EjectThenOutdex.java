@@ -17,7 +17,7 @@ public class EjectThenOutdex extends ParallelCommandGroup {
   
   /** Creates a new EjectThenOutdex. */
   public EjectThenOutdex(
-    Manipulator manipulator, double manipulatorPower, double time,
+    Manipulator manipulator, double manipulatorPower, int time,
     Indexer indexer, double indexerPower
   ) {
     // Add your commands in the addCommands() call, e.g.

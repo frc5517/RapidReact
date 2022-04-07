@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -35,7 +34,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
   }
 
   
@@ -95,11 +93,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // Climb up function
     if (playstationControls.psController.getRawButton(8)) {
-      Climber.climb.set(ControlMode.PercentOutput, -90);
+      Climber.climb.set(ControlMode.PercentOutput, -.8);
     }
     // Climb down function
     else if (playstationControls.psController.getRawButton(7)) {
-      Climber.climb.set(ControlMode.PercentOutput, 90);
+      Climber.climb.set(ControlMode.PercentOutput, .8);
     }
     // If nothing is being pressed climb stops
     else {
@@ -116,7 +114,7 @@ public class Robot extends TimedRobot {
     }
     // Intake Lift set position
     else if (playstationControls.psController.getRawButton(6)) {
-      m_manipulator.moveToSetpoint(80, 1);
+      m_manipulator.moveToSetpoint(145, 1);
     }
     else {
       Manipulator.liftSpark.set(0);

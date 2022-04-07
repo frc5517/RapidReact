@@ -7,7 +7,7 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Manipulator;
-import frc.robot.subsystems.driveTrain;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -16,7 +16,7 @@ public class ScoreHighThenDriveOffTarmac extends SequentialCommandGroup {
   /** Creates a new ScoreThenDriveOffTarmac. */
   public ScoreHighThenDriveOffTarmac(Manipulator manipulator, double manipulatorPower,
                                  Indexer indexer, double indexerPower,
-                                 driveTrain drivetrain, double throttle) {
+                                 DriveTrain drivetrain, double throttle) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

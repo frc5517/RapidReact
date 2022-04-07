@@ -4,7 +4,7 @@
 
 package frc.robot.commands.driveTrain;
 
-import frc.robot.subsystems.driveTrain;
+import frc.robot.subsystems.DriveTrain;
 
 import java.util.function.DoubleSupplier;
 
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   // Create an object for the driveTrain
-  private final driveTrain m_driveTrain;
+  private final DriveTrain m_driveTrain;
 
   // Create two DoubleSupplier objects for power being applied to motors
   private final DoubleSupplier m_throttle, m_rotation;
@@ -24,7 +24,7 @@ public class ArcadeDrive extends CommandBase {
    *
    * @param driveTrain The subsystem used by this command.
    */
-  public ArcadeDrive(driveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier rotation) {
+  public ArcadeDrive(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier rotation) {
     // Use the driveTrain subsystem to gain access to its commands
     m_driveTrain = driveTrain;
 
@@ -44,7 +44,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     // Use the arcadeDrive method from the driveTrain subsystem
-    m_driveTrain.arcadeDrive(m_throttle.getAsDouble(), m_rotation.getAsDouble());
+    m_driveTrain.drive(m_throttle.getAsDouble(), m_rotation.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

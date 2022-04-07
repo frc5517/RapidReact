@@ -4,17 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.SparkConstants;
 
 public class Climber extends SubsystemBase {
- public final static VictorSPX climb = new VictorSPX(Constants.SparkConstants.climbPort);
+ public final static VictorSPX climb = new VictorSPX(SparkConstants.climbPort);
 
   public Climber() {
-      climb.setNeutralMode(NeutralMode.Brake);
+      
     }
 
   public void periodic() {

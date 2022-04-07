@@ -18,7 +18,6 @@ public final class Constants {
     public static final int leftFrontMotorPort = 2;
     public static final int rightRearMotorPort = 3;    
     public static final int rightFrontMotorPort = 4;
-    
     }
 
 public static final class OIConstants {
@@ -37,5 +36,10 @@ public static final class VictorConstants {
 public static final class SparkConstants {
     public static final int climbPort = 25;
     public static final int liftPort = 5;
+}
+public static final class VisionConstants {
+    public final static int BluePipeline = 0;
+    public final static int RedPipeline = 1;
+    public final static String camera = "Microsoft_LifeCam_HD-3000";
 }
 }

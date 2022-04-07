@@ -6,11 +6,11 @@ package frc.robot.commands.driveTrain;
 
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.driveTrain;
+import frc.robot.subsystems.DriveTrain;
 
 public class DriveForward extends ParallelDeadlineGroup {
   /** Creates a new DriveForward. */
-  public DriveForward(driveTrain drivetrain, double throttle, int forwardTime) {
+  public DriveForward(DriveTrain drivetrain, double throttle, int forwardTime) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
     super(new WaitCommand(forwardTime));

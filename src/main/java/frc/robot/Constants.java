@@ -40,6 +40,6 @@ public static final class SparkConstants {
 public static final class VisionConstants {
     public final static int BluePipeline = 0;
     public final static int RedPipeline = 1;
-    public final static String camera = "Microsoft_LifeCam_HD-3000";
+    public final static String camera = "Camera";
 }
 }

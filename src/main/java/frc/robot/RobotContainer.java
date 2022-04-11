@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Vision.AimAtBall;
+import frc.robot.commands.Vision.VisualTrackForTime;
 import frc.robot.commands.autonomous.Rotate;
 import frc.robot.commands.autonomous.Score;
 import frc.robot.commands.autonomous.ScoreHighThenDriveOffTarmac;
@@ -40,6 +41,8 @@ public class RobotContainer {
   private final Manipulator m_manipulator = new Manipulator();
   private final Manipulator m_armLift = new Manipulator();
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  private final BallVision m_ballVision = new BallVision();
 
   private Joystick _controller;
   private Joystick _leftController;
@@ -75,6 +78,11 @@ public class RobotContainer {
   private final Rotate m_rotate = new Rotate(
     m_drivetrain, 0, 0.5
   );
+  private final VisualTrackForTime m_VisualTrackForTime = new VisualTrackForTime(
+    2,
+    m_drivetrain,
+    m_ballVision
+  );
   
   
 
@@ -93,6 +101,7 @@ public class RobotContainer {
     m_chooser.addOption("Score", m_autoScore);
     m_chooser.addOption("DriveOffTarmac", m_autoDriveOffTarmac);
     m_chooser.addOption("Rotate", m_rotate);
+    m_chooser.addOption("Visual Track", m_VisualTrackForTime);
 
     _controller = joystickControls.rightStick;
     _leftController = joystickControls.leftStick;

@@ -5,17 +5,14 @@
 package frc.robot.commands.Vision;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.vision.BallVision;
 
-public class AimAtBall extends CommandBase {
+public class VisualTrack extends CommandBase {
   /** Creates a new AimAtBall. */
 
   private DriveTrain _driveTrain;
-  private Joystick _controller;
-  private Joystick _leftController;
   private BallVision _ballVision;
   private double _targetYaw;
   public static final double DEADZONE = 0.12;
@@ -24,14 +21,11 @@ public class AimAtBall extends CommandBase {
   final double ANGULAR_D = 0.0;
   PIDController turnController = new PIDController(ANGULAR_P, 0, ANGULAR_D);
 
-  public AimAtBall(DriveTrain driveTrain, BallVision ballVision, Joystick controller, Joystick leftController) {
+  public VisualTrack(DriveTrain driveTrain, BallVision ballVision) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this._driveTrain = driveTrain;
     this._ballVision = ballVision;
-    this._controller = controller;
-    this._leftController = leftController;
-
     addRequirements(driveTrain);
 
     
@@ -46,22 +40,16 @@ public class AimAtBall extends CommandBase {
   @Override
   public void execute() {
 
-    if (this._controller.getRawButton(2)) {
       if (this._ballVision.hasTargets()) {
       // get yaw from camera
       this._targetYaw = this._ballVision.getYawVal();
       // trigger drive to turn to vision
 
-        double rotationSpeed = turnController.calculate(this._targetYaw, -.5);
+        double rotationSpeed = turnController.calculate(this._targetYaw, -1);
 
-      this._driveTrain.drive(this._controller.getRawAxis(1), rotationSpeed);
+      this._driveTrain.drive(0, rotationSpeed);
      // else below is when no target is in place
     } 
-  }
-    else {
-      this._driveTrain.drive(this._controller.getRawAxis(1), -this._leftController.getRawAxis(0));
-    
-    }
   }
 
   // Called once the command ends or is interrupted.
